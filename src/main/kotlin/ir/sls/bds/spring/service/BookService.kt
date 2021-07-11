@@ -12,7 +12,9 @@ import ir.sls.bds.spring.repository.AuthorRepository
 import ir.sls.bds.spring.repository.BookRepository
 import ir.sls.bds.spring.repository.EmployeeRepository
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
 class BookService(@Autowired val bookRepository: BookRepository,
@@ -27,6 +29,7 @@ class BookService(@Autowired val bookRepository: BookRepository,
         return authorRepository.findAll().map { it.toDto() }
     }
 
+    @Transactional
     fun searchAuthorById(id:Long): AuthorDto? {
         return authorRepository.findById(id).orElse(null).toDto()
     }
@@ -85,6 +88,13 @@ class BookService(@Autowired val bookRepository: BookRepository,
     fun getEmployeeWithId(id: Long): EmployeeDto {
         return employeeRepository.findById(id).orElse(null)?.toDto()
                 ?: throw EmployeeNotFoundException(id)
+    }
+
+    @Cacheable("teymouri")
+    fun getDummyEmployeeWithId(id: Long): HashMap<String,String> {
+//        val emp2 = EmployeeDto(Random.nextLong(),Random.nextInt().toString(),Random.nextInt().toString(),Random.nextInt().toString(),Random.nextInt().toString())
+//        return emp2
+        return HashMap(mutableMapOf("vahid" to "hamid"))
     }
 
     fun updateEmployeeWithId(id:Long):EmployeeDto{

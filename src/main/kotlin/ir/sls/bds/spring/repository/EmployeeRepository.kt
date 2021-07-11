@@ -10,6 +10,7 @@ import javax.persistence.QueryHint
 
 interface EmployeeRepository : JpaRepository<Employee, Long> {
     @QueryHints(QueryHint(name = HINT_CACHEABLE, value = "true"))
+    //@Where(clause = "id < 4")
     override fun findAll(): MutableList<Employee>
 
     @QueryHints(QueryHint(name = HINT_CACHEABLE, value = "true"))

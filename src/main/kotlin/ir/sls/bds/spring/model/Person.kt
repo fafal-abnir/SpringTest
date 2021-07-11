@@ -10,7 +10,7 @@ import javax.persistence.*
 //@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "employee")
 @Where(clause = "")
-class Employee(fName: String, lName: String, mail:String,phoneN:String) :Serializable {
+abstract class Person(fName: String, lName: String, mail:String,phoneN:String) : Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long = 0
@@ -26,9 +26,5 @@ class Employee(fName: String, lName: String, mail:String,phoneN:String) :Seriali
 
     @Column
     var phoneNumber:String = phoneN
-    fun toDto(): EmployeeDto {
-        return EmployeeDto(this.id,this.firstName, this.lastName,this.email,this.phoneNumber)
-
-    }
     constructor(): this("","","","")
 }

@@ -23,8 +23,8 @@ class Book(bookName: String, category: Category, bookAuthors: MutableSet<Author>
     @Column
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @ManyToMany
-    @JoinTable(name = "author_book", joinColumns = [JoinColumn(name = "book_id")],
-               inverseJoinColumns = [JoinColumn(name = "author_id")])
+//    @JoinTable(name = "author_book", joinColumns = [JoinColumn(name = "book_id")],
+//               inverseJoinColumns = [JoinColumn(name = "author_id")])
     var authors: MutableSet<Author>? = bookAuthors
 
     fun toDto(): BookDto {
